@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda Rubik - Donde Todo es al Cubo</title>
+  <!-- Google Fonts: Estilo Retro Ochentero -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       VARIABLES Y ESTILOS ESTÉTICA AÑOS 80 (RETROSYNTH / NEON)
+       ========================================================================== */
+    :root {
+      --bg-dark: #0d0221;
+      --panel-bg: #190a38;
+      --neon-magenta: #ff007f;
+      --neon-cyan: #00f0ff;
+      --neon-yellow: #ffeb3b;
+      --neon-green: #39ff14;
+      --text-color: #f0f0f0;
+      --font-title: 'Press Start 2P', cursive;
+      --font-body: 'Rajdhani', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        linear-gradient(to bottom, rgba(13, 2, 33, 0.8), rgba(13, 2, 33, 0.95)),
+        linear-gradient(0deg, rgba(255, 0, 127, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.15) 1px, transparent 1px);
+      background-size: 100% 100%, 40px 40px, 40px 40px;
+      color: var(--text-color);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ==========================================================================
+       CABECERA Y BANNER 80s
+       ========================================================================== */
+    header {
+      background: linear-gradient(180deg, #240046 0%, var(--bg-dark) 100%);
+      border-bottom: 4px solid var(--neon-cyan);
+      box-shadow: 0 0 20px var(--neon-cyan);
+      text-align: center;
+      padding: 2rem 1rem 1rem 1rem;
+    }
+
+    .banner {
+      font-family: var(--font-title);
+      font-size: 1.2rem;
+      color: var(--neon-yellow);
+      text-shadow: 3px 3px 0px var(--neon-magenta), -2px -2px 0px var(--neon-cyan);
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { text-shadow: 3px 3px 0px var(--neon-magenta), -2px -2px 0px var(--neon-cyan); }
+      100% { text-shadow: 5px 5px 15px var(--neon-yellow), -3px -3px 10px var(--neon-magenta); }
+    }
+
+    /* ==========================================================================
+       BOTONERA Y NAVEGACIÓN
+       ========================================================================== */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .btn-nav {
+      background: var(--panel-bg);
+      border: 2px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      font-family: var(--font-title);
+      font-size: 0.8rem;
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    }
+
+    .btn-nav:hover, .btn-nav.active {
+      background: var(--neon-cyan);
+      color: var(--bg-dark);
+      box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+    }
+
+    .btn-nav.btn-uml {
+      border-color: var(--neon-magenta);
+      color: var(--neon-magenta);
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+    }
+
+    .btn-nav.btn-uml:hover, .btn-nav.btn-uml.active {
+      background: var(--neon-magenta);
+      color: #fff;
+      box-shadow: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta);
+    }
+
+    /* ==========================================================================
+       CONTENEDORES PRINCIPALES
+       ========================================================================== */
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    .section-view {
+      display: none;
+    }
+
+    .section-view.active {
+      display: block;
+    }
+
+    /* ==========================================================================
+       CATÁLOGO DE POLERAS (GRID & CARDS 80s)
+       ========================================================================== */
+    .grid-poleras {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card-polera {
+      background: var(--panel-bg);
+      border: 2px solid var(--neon-magenta);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
+    }
+
+    .card-polera:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 25px var(--neon-magenta);
+    }
+
+    /* Dibujo SVG de la Polera con Cubo Rubik */
+    .svg-polera {
+      width: 100%;
+      height: 220px;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.4));
+    }
+
+    .polera-titulo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .polera-descripcion {
+      font-size: 1rem;
+      color: #b8b8b8;
+      text-align: center;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .polera-precio {
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      color: var(--neon-yellow);
+      margin-bottom: 1rem;
+      text-shadow: 0 0 5px var(--neon-yellow);
+    }
+
+    .btn-comprar {
+      background: linear-gradient(45deg, var(--neon-magenta), var(--neon-cyan));
+      border: none;
+      color: #fff;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.6rem 1.2rem;
+      width: 100%;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: opacity 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .btn-comprar:hover {
+      opacity: 0.9;
+      box-shadow: 0 0 15px var(--neon-green);
+    }
+
+    /* ==========================================================================
+       VISTA UML (DIAGRAMAS ADJUNTOS)
+       ========================================================================== */
+    .uml-container {
+      background: var(--panel-bg);
+      border: 2px solid var(--neon-cyan);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+    }
+
+    .uml-title {
+      font-family: var(--font-title);
+      font-size: 1rem;
+      color: var(--neon-cyan);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .uml-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid var(--neon-yellow);
+      color: var(--neon-yellow);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      background: var(--neon-yellow);
+      color: var(--bg-dark);
+    }
+
+    .uml-image-wrapper {
+      text-align: center;
+      overflow-x: auto;
+      background: #000;
+      padding: 1rem;
+      border: 1px solid var(--neon-magenta);
+    }
+
+    .uml-image-wrapper img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #333;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #05010e;
+      border-top: 2px solid var(--neon-magenta);
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CABECERA Y BANNER -->
+  <header>
+    <div class="banner">TIENDA RUBIK DONDE TODO ES AL CUBO</div>
+    <!-- BOTONERA DE NAVEGACIÓN -->
+    <nav>
+      <button class="btn-nav active" id="nav-inicio" onclick="mostrarSeccion('inicio')">Inicio</button>
+      <button class="btn-nav btn-uml" id="nav-uml" onclick="mostrarSeccion('uml')">Diagramas UML</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- SECCIÓN INICIO: CATÁLOGO DE POLERAS -->
+    <section id="sec-inicio" class="section-view active">
+      <div class="grid-poleras" id="catalogo-poleras">
+        <!-- Generado dinámicamente con JavaScript -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN UML: DIAGRAMAS ADJUNTOS -->
+    <section id="sec-uml" class="section-view">
+      <div class="uml-container">
+        <h2 class="uml-title">Modelamiento UML de la Tienda</h2>
+        <div class="uml-tabs">
+          <button class="tab-btn active" onclick="cambiarDiagrama('caso-uso', this)">1. Diagrama Casos de Uso</button>
+          <button class="tab-btn" onclick="cambiarDiagrama('clases', this)">2. Diagrama de Clases</button>
+        </div>
+
+        <!-- Diagrama 1: Casos de Uso -->
+        <div id="diag-caso-uso" class="uml-image-wrapper">
+          <p style="margin-bottom: 0.5rem; color: var(--neon-cyan);">Diagrama de Casos de Uso (UML)</p>
+          <img src="tiendaPoleras_caso_uso.png" alt="Diagrama de Casos de Uso - Tienda de Poleras">
+        </div>
+
+        <!-- Diagrama 2: Clases -->
+        <div id="diag-clases" class="uml-image-wrapper" style="display: none;">
+          <p style="margin-bottom: 0.5rem; color: var(--neon-cyan);">Diagrama de Clases (UML)</p>
+          <img src="tindaPoleras_clase.png" alt="Diagrama de Clases - Tienda de Poleras">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Tienda Rubik - Estilo Retro Synthwave 80s | Listo para GitHub Pages</p>
+  </footer>
+
+  <!-- LÓGICA JAVASCRIPT -->
+  <script>
+    // 1. Datos de los Productos (5 Poleras Temática Cubo Rubik)
+    const poleras = [
+      {
+        id: "polera-01",
+        nombre: "Polera SpeedCuber 1980",
+        descripcion: "Diseño vintage retro del cubo clásico en resolución completa de color.",
+        precioCLP: 15990,
+        colorBase: "#111111"
+      },
+      {
+        id: "polera-02",
+        nombre: "Polera 'Everything Cubed'",
+        descripcion: "Estampa synthwave neón con la mítica frase 'Todo es al Cubo'.",
+        precioCLP: 17990,
+        colorBase: "#1a0033"
+      },
+      {
+        id: "polera-03",
+        nombre: "Polera Algorithm Master",
+        descripcion: "Diagrama vectorial de resolución de algoritmo F2L en estilo neón 80s.",
+        precioCLP: 14990,
+        colorBase: "#002b36"
+      },
+      {
+        id: "polera-04",
+        nombre: "Polera Retro Glitch 3x3",
+        descripcion: "Efecto de distorsión VHS sobre un cubo desordenado de vinilo centelleante.",
+        precioCLP: 18990,
+        colorBase: "#220011"
+      },
+      {
+        id: "polera-05",
+        nombre: "Polera Cyber Rubik Minimal",
+        descripcion: "Líneas de neón cyan y magenta formando la perspectiva isométrica del cubo.",
+        precioCLP: 16990,
+        colorBase: "#0d0221"
+      }
+    ];
+
+    // Formateador de moneda para Pesos Chilenos (CLP)
+    const formatearCLP = (monto) => {
+      return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(monto);
+    };
+
+    // Función para generar la ilustración de la polera en SVG dinámico
+    function generarSvgPolera(colorBase) {
+      return `
+        <svg class="svg-polera" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <!-- Silueta de la Polera -->
+          <path d="M 50 40 L 75 25 L 100 35 L 125 25 L 150 40 L 180 70 L 155 95 L 145 85 L 145 180 L 55 180 L 55 85 L 45 95 L 20 70 Z" 
+                fill="${colorBase}" stroke="#00f0ff" stroke-width="2" />
+          
+          <!-- Estampa: Cubo Rubik 80s isometrico -->
+          <g transform="translate(100, 105) scale(0.65)">
+            <!-- Cara Superior (Amarillo/Neón) -->
+            <polygon points="0,-30 30,-15 0,0 -30,-15" fill="#ffeb3b" stroke="#000" stroke-width="2"/>
+            <polygon points="-10,-25 0,-20 10,-25 0,-30" fill="#ffeb3b" stroke="#000" stroke-width="1.5"/>
+            
+            <!-- Cara Izquierda (Magenta/Rojo) -->
+            <polygon points="-30,-15 0,0 0,35 -30,20" fill="#ff007f" stroke="#000" stroke-width="2"/>
+            
+            <!-- Cara Derecha (Cyan/Azul) -->
+            <polygon points="0,0 30,-15 30,20 0,35" fill="#00f0ff" stroke="#000" stroke-width="2"/>
+            
+            <!-- Rejillas 3x3 -->
+            <line x1="-20" y1="-10" x2="-20" y2="25" stroke="#000" stroke-width="1.5"/>
+            <line x1="-10" y1="-5" x2="-10" y2="30" stroke="#000" stroke-width="1.5"/>
+            <line x1="10" y1="-5" x2="10" y2="30" stroke="#000" stroke-width="1.5"/>
+            <line x1="20" y1="-10" x2="20" y2="25" stroke="#000" stroke-width="1.5"/>
+          </g>
+        </svg>
+      `;
+    }
+
+    // Renderizar las poleras en el HTML
+    function cargarCatalogo() {
+      const contenedor = document.getElementById('catalogo-poleras');
+      contenedor.innerHTML = poleras.map(p => `
+        <article class="card-polera">
+          ${generarSvgPolera(p.colorBase)}
+          <h3 class="polera-titulo">${p.nombre}</h3>
+          <p class="polera-descripcion">${p.descripcion}</p>
+          <div class="polera-precio">${formatearCLP(p.precioCLP)}</div>
+          <button class="btn-comprar" onclick="agregarAlCarrito('${p.nombre}')">Agregar al Carrito</button>
+        </article>
+      `).join('');
+    }
+
+    // NAVEGACIÓN ENTRE SECCIONES (Inicio / UML)
+    function mostrarSeccion(seccion) {
+      document.getElementById('sec-inicio').classList.remove('active');
+      document.getElementById('sec-uml').classList.remove('active');
+      document.getElementById('nav-inicio').classList.remove('active');
+      document.getElementById('nav-uml').classList.remove('active');
+
+      if (seccion === 'inicio') {
+        document.getElementById('sec-inicio').classList.add('active');
+        document.getElementById('nav-inicio').classList.add('active');
+      } else if (seccion === 'uml') {
+        document.getElementById('sec-uml').classList.add('active');
+        document.getElementById('nav-uml').classList.add('active');
+      }
+    }
+
+    // CAMBIO DE TABS EN LA SECCIÓN UML
+    function cambiarDiagrama(tipo, btn) {
+      document.getElementById('diag-caso-uso').style.display = 'none';
+      document.getElementById('diag-clases').style.display = 'none';
+
+      const btns = document.querySelectorAll('.tab-btn');
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (tipo === 'caso-uso') {
+        document.getElementById('diag-caso-uso').style.display = 'block';
+      } else {
+        document.getElementById('diag-clases').style.display = 'block';
+      }
+    }
+
+    function agregarAlCarrito(nombrePolera) {
+      alert(`¡${nombrePolera} agregada al carrito!`);
+    }
+
+    // Inicializar catálogo al cargar página
+    window.addEventListener('DOMContentLoaded', cargarCatalogo);
+  </script>
+</body>
+</html>
